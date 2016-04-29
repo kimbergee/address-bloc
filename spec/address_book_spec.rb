@@ -9,6 +9,17 @@ RSpec.describe AddressBook do
     expect(entry.email).to eq expected_email
   end
 
+  describe "#demolish_entries" do
+    it "should delete all entries" do
+      book.add_entry("Ada Lovelace", "010.012.1815", "augusta.king@lovelace.com")
+      book.add_entry("Bill", "555-555-4854", "bill@blocmail.com")
+      book.add_entry("Joe", "555-555-3660", "joe@blocmail.com")
+
+      book.demolish_entries
+      expect(book.entries.size).to eq 0
+    end
+  end
+
   describe "attributes" do
     it "responds to entries" do
       expect(book).to respond_to(:entries)
@@ -25,18 +36,18 @@ RSpec.describe AddressBook do
 
   describe "#add_entry" do
     it "adds only one entry to the address book" do
-      book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+      book.add_entry("Ada Lovelace", "010.012.1815", "augusta.king@lovelace.com")
 
       expect(book.entries.size).to eq(1)
     end
 
     it "adds the correct information to entries" do
-      book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+      book.add_entry("Ada Lovelace", "010.012.1815", "augusta.king@lovelace.com")
       new_entry = book.entries[0]
 
-      expect(new_entry.name).to eq('Ada Lovelace')
-      expect(new_entry.phone_number).to eq('010.012.1815')
-      expect(new_entry.email).to eq('augusta.king@lovelace.com')
+      expect(new_entry.name).to eq("Ada Lovelace")
+      expect(new_entry.phone_number).to eq("010.012.1815")
+      expect(new_entry.email).to eq("augusta.king@lovelace.com")
     end
   end
 

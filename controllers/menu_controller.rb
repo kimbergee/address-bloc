@@ -13,7 +13,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - Demolish everything"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -40,6 +41,11 @@ class MenuController
       main_menu
 
     when 5
+      system "clear"
+      demolish_entries
+      main_menu
+
+    when 6
       puts "Good-bye!"
       exit(0)
 
@@ -51,7 +57,7 @@ class MenuController
   end
 
   def view_all_entries
-    address_book.entries.each do |entry|
+    @address_book.entries.each do |entry|
       system "clear"
       puts entry.to_s
       entry_submenu(entry)
@@ -70,7 +76,7 @@ class MenuController
     print "Email: "
     email = gets.chomp
 
-    address_book.add_entry(name, phone_number, email)
+    @address_book.add_entry(name, phone_number, email)
 
     system "clear"
     puts "New entry created!"
@@ -109,6 +115,10 @@ class MenuController
     end
   end
 
+  def demolish_entries
+    @address_book = []
+    puts "All entries have been demolished"
+  end
 
   def entry_submenu(entry)
     puts "n - next entry"
@@ -136,7 +146,7 @@ class MenuController
     end
 
   def delete_entry(entry)
-    address_book.entries.delete(entry)
+    @address_book.entries.delete(entry)
     puts "#{entry.name} has been deleted"
   end
 
